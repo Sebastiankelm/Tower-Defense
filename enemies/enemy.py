@@ -11,7 +11,7 @@ class Enemy:
         self.animation_count = 0
         self.health = 1
         self.vel = 3
-        self.path = [(9, 228), (199, 239), (263, 286), (550, 281), (627, 148), (664, 76), (733, 53), (815, 97), (873, 263), (1019, 304), (1011, 479), (765, 504), (664, 559), (155, 556), (77, 392), (5, 336)]
+        self.path = [(9, 228), (199, 239), (263, 286), (550, 281), (627, 148), (664, 76), (733, 53), (815, 97), (873, 263), (1019, 304), (1011, 479), (765, 504), (664, 559), (155, 556), (77, 392), (5, 336), (-20, 355)]
         self.x = self.path [0] [0]
         self.y = self.path [0] [1]
         self.img = None
@@ -27,10 +27,9 @@ class Enemy:
         :param win: surface
         :return: None
         """
+        self.img = self.imgs[self.animation_count//3]
         self.animation_count += 1
-        self.img = self.imgs[self.animation_count]
-
-        if self.animation_count >= len(self.imgs):    #
+        if self.animation_count >= len(self.imgs)*3:    #
             self.animation_count = 0  #resetowanie animacji
 
         win.blit(self.img, (self.x, self.y))
@@ -73,10 +72,13 @@ class Enemy:
             self.dis = 0
             self.move_count = 0
             self.path_pos += 1
+            if self.path_pos >= len (self.path):
+                return False
 
 
         self.x = move_x
         self.y = move_y
+        return True
 
     def hit(self):
         """

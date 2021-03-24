@@ -21,7 +21,7 @@ class Game:
         run = True
         clock = pygame.time.Clock()
         while run:
-            clock.tick(60)
+            clock.tick(30)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -30,6 +30,16 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pass
+
+                to_del = []
+                for en in self.enemys:
+                    if en.x < -5:
+                        to_del.append(en)
+
+                # usuniecie wszystkich wrogów z ekranu
+                for d in to_del:
+                    self.enemys.remove(d)
+
 
                 self.draw()
 
