@@ -9,7 +9,7 @@ class Enemy:
         self.animation_count = 0
         self.health = 1
         self.vel = 3
-        self.path = [(-10,224), (19, 224), (177, 235), (282, 283), (526, 277), (607, 217), (641, 105), (717, 57), (796, 83), (855, 222), (973, 284), (1046, 366), (1022, 458), (894, 492), (740, 504), (580, 542), (148, 541), (10, 442), (-20, 335)]
+        self.path = [(-10, 224),(19, 224), (177, 235), (282, 283), (526, 277), (607, 217), (641, 105), (717, 57), (796, 83), (855, 222), (973, 284), (1046, 366), (1022, 458), (894, 492), (740, 504), (580, 542), (148, 541), (10, 442), (-20, 335)]
         self.x = self.path [0] [0]
         self.y = self.path [0] [1]
         self.img = None
@@ -32,7 +32,10 @@ class Enemy:
         if self.animation_count >= len(self.imgs):    #
             self.animation_count = 0  #resetowanie animacji
 
-        win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 - 20))
+       # for dot in self.path: // TRASA
+           # pygame.draw.circle(win, (255,0,0), dot, 10, 0) // TRASA
+
+        win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 -35))
         self.move()
 
     def collide (self, X, Y):
@@ -89,7 +92,7 @@ class Enemy:
                 if self.x <= x2 and self.y >= y2:
                     self.path_pos += 1
             else:
-                if self.x <= x2 and self.y <= y2:
+                if self.x <= x2 and self.y >= y2:
                     self.path_pos += 1
 
 
