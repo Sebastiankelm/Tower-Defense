@@ -10,7 +10,7 @@ class Game:
         self.width = 1200
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.enemys = [Scorpion(),  Club(), Wizard()]
+        self.enemys = [Wizard()]
         self.towers = []
         self.lives = 10
         self.money = 100
@@ -36,7 +36,7 @@ class Game:
 
                 to_del = []
                 for en in self.enemys:
-                    if en.x < -5:
+                    if en.x < -15:
                         to_del.append(en)
 
                 # usuniecie wszystkich wrogów z ekranu
