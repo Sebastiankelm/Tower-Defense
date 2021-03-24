@@ -60,24 +60,25 @@ class Enemy:
             
         move_dis = math.sqrt ((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-        self.move_count += 1
-        dirn = (x2-x1, y2-y1)
+        dirn = ((x2-x1), (y2-y1))
+        length = math.sqrt((dirn[0])**2 + (dirn[1])**2)
+        dirn = (dirn[0]/length, dirn[1]/length)
+
 
         if dirn[0] < 0 and not(self.flipped):
             self.flipped = True
             for x, img in enumerate(self.imgs):
                 self.imgs[x] = pygame.transform.flip(img, True, False)
 
-        move_x, move_y = ((self.x + dirn[0] * self.move_count), (self.y + dirn[1] * self.move_count))
-        self.dis += math.sqrt ((move_x - x1) ** 2 + (move_y - y1) ** 2)
+        move_x, move_y = ((self.x + dirn[0]), (self.y + dirn[1]))
+        self.dis += length
 
         self.x = move_x
         self.y = move_y
 
         # przejście do kolejnego punktu
-        if self.dis >= move_dis:
+        if self.x == x1 and self.y == y2:
             self.dis = 0
-            self.move_count = 0
             self.path_pos += 1
             if self.path_pos >= len (self.path):
                 return False
