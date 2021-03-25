@@ -6,6 +6,10 @@ from enemies.wizard import Wizard
 from towers.archerTower import ArcherTowerLong, ArcherTowerShort
 import time
 import random
+pygame.font.init()
+
+lives_img = pygame.image.load(os.path.join("game_assets", "heart.png"))
+star_img = pygame.image.load(os.path.join("game_assets", "star.png"))
 
 
 class Game:
@@ -20,6 +24,7 @@ class Game:
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
+        self.life_font = pygame.font.SysFont("comicsans", 70)
 
 
 
@@ -48,11 +53,17 @@ class Game:
 
             # usuniecie wszystkich wrogów z ekranu
             for d in to_del:
+                self.lives -= 1
                 self.enemys.remove(d)
 
-                # pętla przez wieże
+            # pętla przez wieże
             for tw in self.towers:
                 tw.attack(self.enemys)
+
+            #jesli przegrasz
+            if self.lives <=0:
+                print("Przegrana")
+                run = False
 
             self.draw()
 
@@ -68,6 +79,14 @@ class Game:
         # Rysowanie przeciwników
         for en in self.enemys:
             en.draw(self.win)
+
+        #Rysowanie życ
+        text = self.life_font.render(str(self.lives), 1, (255,255,255))
+        life = pygame.transform.scale(lives_img, (50,50))
+        start_x = self.width - life.get_width() - 10
+
+        self.win.blit(text, (start_x - text.get_width() - 10, 13))
+        self.win.blit(life, (start_x, 10))
 
         pygame.display.update()
 
