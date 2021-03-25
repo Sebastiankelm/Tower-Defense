@@ -2,6 +2,7 @@ import pygame
 from .tower import Tower
 import os
 import math
+import time
 
 class ArcherTowerLong(Tower):
     def __init__(self, x,y):
@@ -12,6 +13,9 @@ class ArcherTowerLong(Tower):
         self.range = 200
         self.inRange = False
         self.left = True
+        self.timer = time.time()
+
+
 
         #Wczytuje zdjęcie wiezy łuczniczej
         for x in range(7,10):
@@ -76,6 +80,10 @@ class ArcherTowerLong(Tower):
         enemy_closest.sort(key=lambda x: x.x)
         if len(enemy_closest) > 0:
             first_enemy = enemy_closest[0]
+            if time.time() - self.timer >= 0.5:
+                self.timer = time.time()
+                if first_enemy.hit() == True:
+                    enemies.remove(first_enemy)
 
             if first_enemy.x > self.x and not (self.left):
                 self.left = True

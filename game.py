@@ -4,6 +4,8 @@ from enemies.scorpion import Scorpion
 from enemies.club import Club
 from enemies.wizard import Wizard
 from towers.archerTower import ArcherTowerLong
+import time
+import random
 
 
 class Game:
@@ -17,6 +19,7 @@ class Game:
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
+        self.timer = time.time()
 
 
 
@@ -24,6 +27,9 @@ class Game:
         run = True
         clock = pygame.time.Clock()
         while run:
+            if time.time() - self.timer >= 2:
+                self.timer = time.time()
+                self.enemys.append(random.choice([Club(), Scorpion(), Wizard()]))
             #pygame.time.delay(500)
             clock.tick(200)
             for event in pygame.event.get():
