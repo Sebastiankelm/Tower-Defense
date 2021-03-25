@@ -32,8 +32,8 @@ class Enemy:
         if self.animation_count >= len(self.imgs):    #
             self.animation_count = 0  #resetowanie animacji
 
-       # for dot in self.path: // TRASA
-           # pygame.draw.circle(win, (255,0,0), dot, 10, 0) // TRASA
+       # for dot in self.path:
+         #   pygame.draw.circle(win, (255,0,0), dot, 10, 0)
 
         win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 -35))
         self.move()
@@ -92,7 +92,7 @@ class Enemy:
                 if self.x <= x2 and self.y >= y2:
                     self.path_pos += 1
             else:
-                if self.x <= x2 and self.y >= y2:
+                if self.x < x2 and self.y >= y2:
                     self.path_pos += 1
 
 
