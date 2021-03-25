@@ -11,6 +11,7 @@ class ArcherTowerLong(Tower):
         self.archer_count = 0
         self.range = 200
         self.inRange = False
+        self.left = True
 
         #Wczytuje zdjęcie wiezy łuczniczej
         for x in range(7,10):
@@ -24,7 +25,13 @@ class ArcherTowerLong(Tower):
                     pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")),)
 
     def draw(self, win):
+        # rysowanie okręgu zasięgu
+        surface = pygame.Surface((self.range*4, self.range*4), pygame.SRCALPHA, 32)
+        pygame.draw.circle(surface, (128,128,128, 100), (self.range,self.range), self.range, 0)
+
+        win.blit(surface, (self.x - self.range, self.y - self.range))
         super().draw(win)
+
 
         if self.inRange:
             self.archer_count += 1
@@ -34,14 +41,12 @@ class ArcherTowerLong(Tower):
             self.archer_count = 0
 
         archer = self.archer_imgs[self.archer_count//10]
-        win.blit(archer, ((self.x + self.width/2 - 25), (self.y - archer.get_height() - 25)))
+        if self.left == True:
+            add = -25
+        else:
+            add = -archer.get_width()/2
+        win.blit(archer, ((self.x + self.width / 2 + add), (self.y - archer.get_height() - 25)))
 
-        # rysowanie okręgu zasięgu
-        circle_surface = pygame.Surface((self.range*2, self.range*2))
-        circle_surface.set_alpha(128)
-        pygame.draw.circle(circle_surface, (0,255,0), (self.x, self.y), self.range, 4)
-
-        win.blit(circle_surface, (self.x, self.y))
 
     def change_range(self, r):
         """
@@ -67,6 +72,20 @@ class ArcherTowerLong(Tower):
             if dis < self.range:
                 self.inRange = True
                 enemy_closest.append(enemy)
+
+        enemy_closest.sort(key=lambda x: x.x)
+        if len(enemy_closest) > 0:
+            first_enemy = enemy_closest[0]
+
+            if first_enemy.x > self.x and not (self.left):
+                self.left = True
+                for x, img in enumerate(self.archer_imgs):
+                    self.archer_imgs[x] = pygame.transform.flip(img, True, False)
+            elif self.left and first_enemy.x < self.x:
+                self.left = False
+                for x, img in enumerate(self.archer_imgs):
+                    self.archer_imgs[x] = pygame.transform.flip(img, True, False)
+
 
 
 
