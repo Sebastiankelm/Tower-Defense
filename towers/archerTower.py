@@ -44,7 +44,7 @@ class ArcherTowerLong(Tower):
         if self.left == True:
             add = -25
         else:
-            add = -archer.get_width()/2
+            add = -archer.get_width() +10
         win.blit(archer, ((self.x + self.width / 2 + add), (self.y - archer.get_height() - 25)))
 
 
