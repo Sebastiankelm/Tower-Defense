@@ -3,7 +3,7 @@ import os
 from enemies.scorpion import Scorpion
 from enemies.club import Club
 from enemies.wizard import Wizard
-from towers.archerTower import ArcherTowerLong
+from towers.archerTower import ArcherTowerLong, ArcherTowerShort
 import time
 import random
 
@@ -14,7 +14,7 @@ class Game:
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Wizard()]
-        self.towers = [ArcherTowerLong(300,200), ArcherTowerLong(700,600)]
+        self.towers = [ArcherTowerLong(300,200), ArcherTowerLong(700,600), ArcherTowerShort(200,600)]
         self.lives = 10
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))

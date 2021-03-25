@@ -4,30 +4,31 @@ import os
 import math
 import time
 
+tower_imgs1 = []
+archer_imgs1 = []
+
+# Wczytuje zdjęcie wiezy łuczniczej
+for x in range(7, 10):
+    tower_imgs1.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("game_assets/archer_towers/archer_1", str(x) + ".png")),
+        (90, 90)))
+
+# wczytuje zdjęcie łucznikow
+for x in range(38, 43):
+    archer_imgs1.append(
+        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")), )
+
 class ArcherTowerLong(Tower):
     def __init__(self, x,y):
         super().__init__(x, y)
-        self.tower_imgs = []
-        self.archer_imgs = []
+        self.tower_imgs = tower_imgs1
+        self.archer_imgs = archer_imgs1
         self.archer_count = 0
         self.range = 200
         self.inRange = False
         self.left = True
         self.timer = time.time()
         self.damage = 1
-
-
-
-        #Wczytuje zdjęcie wiezy łuczniczej
-        for x in range(7,10):
-             self.tower_imgs.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("game_assets/archer_towers/archer_1", str(x) + ".png")),
-                (90, 90)))
-
-        #wczytuje zdjęcie łucznikow
-        for x in range(37,43):
-            self.archer_imgs.append(
-                pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")),)
 
     def draw(self, win):
         # rysowanie okręgu zasięgu
@@ -95,6 +96,31 @@ class ArcherTowerLong(Tower):
                 for x, img in enumerate(self.archer_imgs):
                     self.archer_imgs[x] = pygame.transform.flip(img, True, False)
 
+
+tower_imgs = []
+archer_imgs = []
+# Wczytuje zdjęcie wiezy łuczniczej
+for x in range(10, 13):
+    tower_imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("game_assets/archer_towers/archer_2", str(x) + ".png")),
+        (90, 90)))
+
+# wczytuje zdjęcie łucznikow
+for x in range(43, 49):
+    archer_imgs.append(
+        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top_2", str(x) + ".png")), )
+
+class ArcherTowerShort(ArcherTowerLong):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.tower_imgs = tower_imgs
+        self.archer_imgs = archer_imgs
+        self.archer_count = 0
+        self.range = 100
+        self.inRange = False
+        self.left = True
+        self.timer = time.time()
+        self.damage = 2
 
 
 
