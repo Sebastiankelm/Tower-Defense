@@ -16,13 +16,13 @@ for x in range(7, 10):
 # wczytuje zdjęcie łucznikow
 for x in range(38, 43):
     archer_imgs1.append(
-        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")), )
+        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")))
 
 class ArcherTowerLong(Tower):
     def __init__(self, x,y):
         super().__init__(x, y)
-        self.tower_imgs = tower_imgs1
-        self.archer_imgs = archer_imgs1
+        self.tower_imgs = tower_imgs1[:]
+        self.archer_imgs = archer_imgs1[:]
         self.archer_count = 0
         self.range = 200
         self.inRange = False
@@ -108,13 +108,13 @@ for x in range(10, 13):
 # wczytuje zdjęcie łucznikow
 for x in range(43, 49):
     archer_imgs.append(
-        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top_2", str(x) + ".png")), )
+        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top_2", str(x) + ".png")))
 
 class ArcherTowerShort(ArcherTowerLong):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.tower_imgs = tower_imgs
-        self.archer_imgs = archer_imgs
+        self.tower_imgs = tower_imgs[:]
+        self.archer_imgs = archer_imgs[:]
         self.archer_count = 0
         self.range = 100
         self.inRange = False
