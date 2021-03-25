@@ -24,7 +24,7 @@ class Enemy:
 
     def draw (self, win):
         """
-        Draws the enemy with the given images
+        Rysuje wroga za pomocą podanych obrazów
         :param win: surface
         :return: None
         """
@@ -55,7 +55,7 @@ class Enemy:
 
     def collide (self, X, Y):
         """
-        Returns if position has hit enemy
+        Zwraca, gdy trafiono wroga
         :param x: int
         :param y: int
         :return: Bool
@@ -67,7 +67,7 @@ class Enemy:
 
     def move(self):
         """
-        Move enemy
+        Ruch przeciwnikow
         :return:None
         """
         x1, y1 = self.path[self.path_pos]

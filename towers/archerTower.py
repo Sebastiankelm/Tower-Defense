@@ -14,19 +14,20 @@ class ArcherTowerLong(Tower):
         self.inRange = False
         self.left = True
         self.timer = time.time()
+        self.damage = 1
 
 
 
         #Wczytuje zdjęcie wiezy łuczniczej
         for x in range(7,10):
-                self.tower_imgs.append(pygame.transform.scale(
-                    pygame.image.load(os.path.join("game_assets/archer_towers/archer_1", str(x) + ".png")),
-                    (90, 90)))
+             self.tower_imgs.append(pygame.transform.scale(
+                pygame.image.load(os.path.join("game_assets/archer_towers/archer_1", str(x) + ".png")),
+                (90, 90)))
 
         #wczytuje zdjęcie łucznikow
         for x in range(37,43):
-                self.archer_imgs.append(
-                    pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")),)
+            self.archer_imgs.append(
+                pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")),)
 
     def draw(self, win):
         # rysowanie okręgu zasięgu
@@ -44,11 +45,11 @@ class ArcherTowerLong(Tower):
         else:
             self.archer_count = 0
 
-        archer = self.archer_imgs[self.archer_count//10]
+        archer = self.archer_imgs[self.archer_count // 10]
         if self.left == True:
             add = -25
         else:
-            add = -archer.get_width() +10
+            add = -archer.get_width() + 10
         win.blit(archer, ((self.x + self.width / 2 + add), (self.y - archer.get_height() - 25)))
 
 

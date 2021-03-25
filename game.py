@@ -14,7 +14,7 @@ class Game:
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Wizard()]
-        self.towers = [ArcherTowerLong(300,200)]
+        self.towers = [ArcherTowerLong(300,200), ArcherTowerLong(700,600)]
         self.lives = 10
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
@@ -27,10 +27,9 @@ class Game:
         run = True
         clock = pygame.time.Clock()
         while run:
-            if time.time() - self.timer >= 2:
+            if time.time() - self.timer >= random.randrange(1,5)/2:
                 self.timer = time.time()
                 self.enemys.append(random.choice([Club(), Scorpion(), Wizard()]))
-            #pygame.time.delay(500)
             clock.tick(200)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -40,21 +39,22 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pass
-                # petla przez przeciwnikow
-                to_del = []
-                for en in self.enemys:
-                    if en.x < -15:
-                        to_del.append(en)
 
-                # usuniecie wszystkich wrogów z ekranu
-                for d in to_del:
-                    self.enemys.remove(d)
+            # petla przez przeciwnikow
+            to_del = []
+            for en in self.enemys:
+                if en.x < -15:
+                    to_del.append(en)
+
+            # usuniecie wszystkich wrogów z ekranu
+            for d in to_del:
+                self.enemys.remove(d)
 
                 # pętla przez wieże
-                for tw in self.towers:
-                    tw.attack(self.enemys)
+            for tw in self.towers:
+                tw.attack(self.enemys)
 
-                self.draw()
+            self.draw()
 
         pygame.quit()
 

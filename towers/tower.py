@@ -13,6 +13,7 @@ class Tower:
         self. selected = False
         self.menu = None
         self.tower_imgs = []
+        self.damage = 1
 
     def draw(self, win):
         """
@@ -49,6 +50,8 @@ class Tower:
         :return: None
         """
         self.level += 1
+        self.damage += 1
+
     def get_upgrade_cost(self):
         """
         zwraca koszt ulepszenia, jeśli 0, to nie może  ulepszać
