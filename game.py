@@ -3,6 +3,7 @@ import os
 from enemies.scorpion import Scorpion
 from enemies.club import Club
 from enemies.wizard import Wizard
+from towers.archerTower import ArcherTowerLong
 
 
 class Game:
@@ -11,7 +12,7 @@ class Game:
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Wizard()]
-        self.towers = []
+        self.towers = [ArcherTowerLong(300,200)]
         self.lives = 10
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
@@ -33,7 +34,7 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pass
-
+                # petla przez przeciwnikow
                 to_del = []
                 for en in self.enemys:
                     if en.x < -15:
@@ -43,6 +44,9 @@ class Game:
                 for d in to_del:
                     self.enemys.remove(d)
 
+                # pętla przez wieże
+                for tw in self.towers:
+                    tw.attack(self.enemys)
 
                 self.draw()
 
@@ -52,9 +56,12 @@ class Game:
         self.win.blit(self.bg, (0,0))
 
         #Rysowanie przeciwników
-
         for en in self.enemys:
             en.draw(self.win)
+
+        #Rysowanie wież
+        for tw in self.towers:
+            tw.draw(self.win)
 
         pygame.display.update()
 
