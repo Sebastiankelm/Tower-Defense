@@ -30,7 +30,7 @@ class Game:
             if time.time() - self.timer >= random.randrange(1,5)/2:
                 self.timer = time.time()
                 self.enemys.append(random.choice([Club(), Scorpion(), Wizard()]))
-            clock.tick(200)
+            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -61,13 +61,13 @@ class Game:
     def draw (self):
         self.win.blit(self.bg, (0,0))
 
-        #Rysowanie przeciwników
-        for en in self.enemys:
-            en.draw(self.win)
-
         #Rysowanie wież
         for tw in self.towers:
             tw.draw(self.win)
+
+        # Rysowanie przeciwników
+        for en in self.enemys:
+            en.draw(self.win)
 
         pygame.display.update()
 

@@ -27,7 +27,6 @@ class ArcherTowerLong(Tower):
         self.range = 200
         self.inRange = False
         self.left = True
-        self.timer = time.time()
         self.damage = 1
 
     def draw(self, win):
@@ -82,9 +81,8 @@ class ArcherTowerLong(Tower):
         enemy_closest.sort(key=lambda x: x.x)
         if len(enemy_closest) > 0:
             first_enemy = enemy_closest[0]
-            if time.time() - self.timer >= 0.5:
-                self.timer = time.time()
-                if first_enemy.hit() == True:
+            if self.archer_count == 6:
+                if first_enemy.hit(self.damage) == True:
                     enemies.remove(first_enemy)
 
             if first_enemy.x > self.x and not (self.left):
@@ -119,7 +117,6 @@ class ArcherTowerShort(ArcherTowerLong):
         self.range = 100
         self.inRange = False
         self.left = True
-        self.timer = time.time()
         self.damage = 2
 
 

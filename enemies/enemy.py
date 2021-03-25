@@ -111,13 +111,13 @@ class Enemy:
                     self.path_pos += 1
 
 
-    def hit(self):
+    def hit(self, damage):
         """
         Returns if an enemy has died and remove one health
         each call
         :return: Bool
         """
-        self.health -= 1
-        if self.health <=0:
+        self.health -= damage
+        if self.health <= 0:
             return True
         return False
