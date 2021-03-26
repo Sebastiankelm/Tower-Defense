@@ -2,7 +2,6 @@ import pygame
 from .tower import Tower
 import os
 import math
-import time
 from menu.menu import Menu
 
 menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "menu.png")), (120,70))
@@ -43,12 +42,20 @@ class ArcherTowerLong(Tower):
         self.menu.add_btn(upgrade_btn, "Upgrade")
 
     def get_upgrade_cost(self):
+        """
+        Pobierz koszt ulepszenia
+        :return: int
+        """
         return self.menu.get_item_cost()
 
     def draw(self, win):
+        """
+        narysuj wieżę łuczników i animacje łucznika
+        :param win: surface
+        :return: int
+        """
         super().draw_radius(win)
         super().draw(win)
-
 
         if self.inRange and not self.moving:
             self.archer_count += 1

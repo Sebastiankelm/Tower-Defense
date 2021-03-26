@@ -2,6 +2,7 @@ import pygame
 import math
 
 
+
 class Enemy:
     def __init__(self):
         self.width = 64
@@ -19,7 +20,7 @@ class Enemy:
         self.move_dis = 0
         self.imgs = []
         self.flipped = False
-        self.max_helath = 0
+        self.max_health = 0
 
 
     def draw (self, win):
@@ -88,7 +89,6 @@ class Enemy:
                 self.imgs[x] = pygame.transform.flip(img, True, False)
 
         move_x, move_y = ((self.x + dirn[0]), (self.y + dirn[1]))
-
 
         self.x = move_x
         self.y = move_y

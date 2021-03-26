@@ -20,7 +20,7 @@ buy_damage = pygame.transform.scale(pygame.image.load(os.path.join("game_assets"
 buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "buy_range.png")), (75,75))
 
 attack_tower_names = ["archer", "archer2"]
-support_tower_names = ["archer", "archer2"]
+support_tower_names = ["range", "damage"]
 
 
 class Game:
@@ -51,7 +51,7 @@ class Game:
         run = True
         clock = pygame.time.Clock()
         while run:
-            clock.tick(200)
+            clock.tick(60)
             # Generowanie potworów
             if time.time() - self.timer >= random.randrange(1,5)/2:
                 self.timer = time.time()
@@ -101,7 +101,7 @@ class Game:
                                     self.money -= cost
                                     self.selected_tower.upgrade()
 
-                    if not(btn_clicked):
+                    if not (btn_clicked):
                         for tw in self.attack_towers:
                             if tw.click(pos[0], pos[1]):
                                 tw.selected = True

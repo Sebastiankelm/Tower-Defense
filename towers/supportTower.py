@@ -14,12 +14,13 @@ class RangeTower(Tower):
     dodaj dodatkowy zasięg do każdej wiezy w poblizu
     """
     def __init__(self, x, y):
-        super(). __init__(x,y)
+        super().__init__(x,y)
         self.range = 75
         self.effect = [0.2, 0.4]
         self.tower_imgs = range_imgs[:]
         self.width = self.height = 90
         self.name = "range"
+        self.price = [2000]
 
     def draw(self, win):
         super().draw_radius(win)
@@ -52,11 +53,12 @@ class DamageTower(RangeTower):
     Dada damage do pobliskich wiez
     """
     def __init__(self, x, y):
-        super(). __init__(x,y)
-        self.range = 75
+        super().__init__(x,y)
+        self.range = 100
         self.tower_imgs = damage_imgs[:]
-        self.effect = [0.2, 0.4]
+        self.effect = [0.5, 1]
         self.name = "damage"
+        self.price = [2000]
 
     def support(self,towers):
         """

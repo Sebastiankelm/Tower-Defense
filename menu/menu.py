@@ -26,7 +26,7 @@ class Button:
         :param y: int
         :return: bool
         """
-        if X <= self.x + self.width and X >- self.x:
+        if X <= self.x + self.width and X >= self.x:
             if Y <= self.y + self.height and Y >= self.y:
                 return True
         return False
@@ -150,7 +150,7 @@ class VerticalMenu(Menu):
         win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y-120))
         for item in self.buttons:
             item.draw(win)
-            win.blit(star2, (item.x+2, item.y + item.height + 5))
+            win.blit(star2, (item.x+2, item.y + item.height))
             text = self.font.render(str(item.cost), 1, (255,255,255))
             win.blit(text, (item.x + item.width/2 - text.get_width()/2 + 7, item.y + item.height + 5))
 
