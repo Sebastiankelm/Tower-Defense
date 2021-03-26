@@ -75,9 +75,7 @@ class Menu:
             item.draw(win)
             win.blit(star, (item.x + item.width + 5, item.y - 9))
             text = self.font.render(str(self.item_cost[self.tower.level - 1]), 1, (255,255,255))
-            win.blit(text, (item.x + item.width + 35 - text.get_width()/2, item.y + star.get_height() - 8))
-
-
+            win.blit(text, (item.x + item.width + 30 - text.get_width()/2, item.y + star.get_height() - 8))
 
     def get_clicked(self, X, Y):
         """

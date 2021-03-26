@@ -20,7 +20,7 @@ class Tower:
         self.level = 1
         self.selected = False
         #definiuje menu i przyciski
-        self.menu = Menu(self, self.x, self.y, menu_bg, [2000, 5000, 12000])
+        self.menu = Menu(self, self.x, self.y, menu_bg, [2000, "MAX"])
         self.menu.add_btn(upgrade_btn, "Upgrade")
 
 
@@ -74,8 +74,9 @@ class Tower:
         ulepsza wieżę za określony koszt
         :return: None
         """
-        self.level += 1
-        self.damage += 1
+        if self.level + 1 < len(self.tower_imgs):
+            self.level += 1
+            self.damage += 1
 
     def get_upgrade_cost(self):
         """
