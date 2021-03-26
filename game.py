@@ -4,6 +4,7 @@ from enemies.scorpion import Scorpion
 from enemies.club import Club
 from enemies.wizard import Wizard
 from towers.archerTower import ArcherTowerLong, ArcherTowerShort
+from towers.supportTower import DamageTower, RangeTower
 import time
 import random
 pygame.font.init()
@@ -18,7 +19,8 @@ class Game:
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Wizard()]
-        self.towers = [ArcherTowerLong(300,200), ArcherTowerLong(700,600), ArcherTowerShort(200,600)]
+        self.attack_towers = [ArcherTowerLong(300, 200), ArcherTowerLong(700, 600), ArcherTowerShort(200, 600)]
+        self.support_towers = [RangeTower(200,100)]
         self.lives = 10
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
@@ -56,9 +58,13 @@ class Game:
                 self.lives -= 1
                 self.enemys.remove(d)
 
-            # pętla przez wieże
-            for tw in self.towers:
+            # pętla przez wieże atakujące
+            for tw in self.attack_towers:
                 tw.attack(self.enemys)
+
+            # pętla przez wieże wspierające
+            for tw in self.support_towers:
+                tw.support(self.attack_towers)
 
             #jesli przegrasz
             if self.lives <=0:
@@ -72,8 +78,12 @@ class Game:
     def draw (self):
         self.win.blit(self.bg, (0,0))
 
-        #Rysowanie wież
-        for tw in self.towers:
+        #Rysowanie wież atakujących
+        for tw in self.attack_towers:
+            tw.draw(self.win)
+
+        # Rysowanie wież wspierających
+        for tw in self.support_towers:
             tw.draw(self.win)
 
         # Rysowanie przeciwników
@@ -89,6 +99,9 @@ class Game:
         self.win.blit(life, (start_x, 10))
 
         pygame.display.update()
+
+    def draw_menu(self):
+        pass
 
 g = Game()
 g.run()
