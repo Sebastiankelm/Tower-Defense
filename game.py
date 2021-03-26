@@ -19,6 +19,9 @@ buy_archer_2 = pygame.transform.scale(pygame.image.load(os.path.join("game_asset
 buy_damage = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "buy_damage.png")), (75,75))
 buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "buy_range.png")), (75,75))
 
+attack_tower_names = ["archer", "archer2"]
+support_tower_names = ["archer", "archer2"]
+
 
 class Game:
     def __init__(self):
@@ -40,6 +43,7 @@ class Game:
         self.menu.add_btn(buy_archer_2, "buy_archer_2", 750)
         self.menu.add_btn(buy_damage, "buy_damage", 1000)
         self.menu.add_btn(buy_range, "buy_range", 1000)
+        self.moving_object = None
 
 
 
@@ -47,18 +51,46 @@ class Game:
         run = True
         clock = pygame.time.Clock()
         while run:
+            clock.tick(200)
+            # Generowanie potworów
             if time.time() - self.timer >= random.randrange(1,5)/2:
                 self.timer = time.time()
                 self.enemys.append(random.choice([Club(), Scorpion(), Wizard()]))
-            clock.tick(60)
+
+            pos = pygame.mouse.get_pos()
+
+            # sprawdza czy obiekt sie porusza
+            if self.moving_object:
+                self.moving_object.move(pos[0], pos[1])
+
+            # główna pętla zdarzeń
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
 
-                pos = pygame.mouse.get_pos()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    # pokazuje zasieg po kliknieciu w wieze atakujaca
+                    # Jesli prouszasz obiektem i klikniesz
+                    if self.moving_object:
+
+                        if self.moving_object.name in attack_tower_names:
+                            self.attack_towers.append(self.moving_object)
+                        elif self.moving_object.name in support_tower_names:
+                            self.support_towers.append(self.moving_object)
+
+                        self.moving_object.moving = False
+                        self.moving_object = None
+
+
+                else:
+                    #klikniecie w menu boczne
+                    side_menu_button = self.menu.get_clicked(pos[0], pos[1])
+                    if side_menu_button:
+                        self.add_tower(side_menu_button)
+
+
+
+                    # pokazuje zasieg po kliknieciu w wieze atakujaca lub wspierającą
                     btn_clicked = None
                     if self.selected_tower:
                         btn_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
@@ -112,6 +144,7 @@ class Game:
 
             self.draw()
 
+
         pygame.quit()
 
     def draw (self):
@@ -128,6 +161,10 @@ class Game:
         # Rysowanie przeciwników
         for en in self.enemys:
             en.draw(self.win)
+
+        #Rysowanie ruchu obiektu
+        if self.moving_object:
+            self.moving_object.draw(self.win)
 
         #draw menu
         self.menu.draw(self.win)
@@ -150,8 +187,17 @@ class Game:
 
         pygame.display.update()
 
-    def draw_menu(self):
-        pass
+    def add_tower(self, name):
+        x, y = pygame.mouse.get_pos()
+        name_list = ["buy_archer","buy_archer_2","buy_damage","buy_range" ]
+        object_list = [ArcherTowerLong(x,y), ArcherTowerShort(x,y), DamageTower(x,y), RangeTower(x,y)]
+
+        try:
+            obj = object_list[name_list.index(name)]
+            self.moving_object = obj
+            obj.moving = True
+        except Exception as e:
+            print(str(e) + "Nieprawidłowa nazwa")
 
 g = Game()
 g.run()
