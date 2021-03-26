@@ -83,8 +83,17 @@ class Tower:
         zwraca koszt ulepszenia, jeśli 0, to nie może  ulepszać
         :return: int
         """
-        return self.price(self.level-1)
+        return self.price[self.level-1]
 
     def move(self, x, y):
+        """
+        Przesuwa wieze do podanego x i y
+        :param x: int
+        :param y: int
+        :return: None
+        """
         self.x = x
         self.y = y
+        self.menu.x = x
+        self.menu.y = y
+        self.menu.update()
