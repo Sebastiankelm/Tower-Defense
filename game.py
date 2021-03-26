@@ -86,7 +86,10 @@ class Game:
                         #klikniecie w menu boczne
                         side_menu_button = self.menu.get_clicked(pos[0], pos[1])
                         if side_menu_button:
-                            self.add_tower(side_menu_button)
+                            cost = self.menu.get_item_cost(side_menu_button)
+                            if self.money >= cost:
+                                self.money -= cost
+                                self.add_tower(side_menu_button)
 
 
 
