@@ -1,4 +1,10 @@
 import pygame
+from menu.menu import Menu
+import os
+
+menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "menu.png")), (120,70))
+umpgrade_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "upgrade.png")), (50,50))
+
 
 class Tower:
     """
@@ -13,7 +19,11 @@ class Tower:
         self.price = [0,0,0]
         self.level = 1
         self. selected = False
-        self.menu = None
+        #definiuje menu i przyciski
+        self.menu = Menu(self.x, self.y, menu_bg)
+        self.menu.add_btn(umpgrade_btn, "Upgrade")
+
+
         self.tower_imgs = []
         self.damage = 1
 
@@ -25,6 +35,10 @@ class Tower:
         """
         img = self.tower_imgs[self.level - 1]
         win.blit (img, (self.x-img.get_width()//2, self.y-img.get_height()//2))
+
+        #rysowanie menu
+        if self.selected:
+            self.menu.draw(win)
 
     def draw_radius(self, win):
         if self.selected:
