@@ -64,6 +64,13 @@ class Menu:
         btn_y = self.y - 120 + 10
         self.buttons.append(Button(btn_x, btn_y, img, name))
 
+    def get_item_cost(self):
+        """
+        pobiera koszt ulepszenia do następnego poziomu
+        :return:int
+        """
+        return self.item_cost[self.tower.level -1]
+
     def draw(self, win):
         """
         rysowanie przycisków i tła menu
