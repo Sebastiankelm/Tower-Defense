@@ -44,6 +44,7 @@ class Game:
         self.menu.add_btn(buy_damage, "buy_damage", 1000)
         self.menu.add_btn(buy_range, "buy_range", 1000)
         self.moving_object = None
+        #self.clicks = []
 
 
 
@@ -70,6 +71,8 @@ class Game:
 
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    #self.clicks.append(pos)
+                    #print(self.clicks)
                     # Jesli prouszasz obiektem i klikniesz
                     if self.moving_object:
 

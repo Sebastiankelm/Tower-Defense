@@ -33,9 +33,18 @@ class Button:
         return False
 
     def draw(self, win):
+        """
+        rusyje zdjęcia przyciskow
+        :param win: surface
+        :return: None
+        """
         win.blit(self.img, (self.x, self.y))
 
     def update(self):
+        """
+        aktualizuje pozycje przyciskow
+        :return: None
+        """
         self.x = self.menu.x - 50
         self.y = self.menu.y - 110
 
