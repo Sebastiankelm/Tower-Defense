@@ -82,39 +82,39 @@ class Game:
                         self.moving_object = None
 
 
-                else:
-                    #klikniecie w menu boczne
-                    side_menu_button = self.menu.get_clicked(pos[0], pos[1])
-                    if side_menu_button:
-                        self.add_tower(side_menu_button)
+                    else:
+                        #klikniecie w menu boczne
+                        side_menu_button = self.menu.get_clicked(pos[0], pos[1])
+                        if side_menu_button:
+                            self.add_tower(side_menu_button)
 
 
 
-                    # pokazuje zasieg po kliknieciu w wieze atakujaca lub wspierającą
-                    btn_clicked = None
-                    if self.selected_tower:
-                        btn_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
-                        if btn_clicked:
-                            if btn_clicked == "Upgrade":
-                                cost = self.selected_tower.get_upgrade_cost()
-                                if self.money >= cost:
-                                    self.money -= cost
-                                    self.selected_tower.upgrade()
+                        # pokazuje zasieg po kliknieciu w wieze atakujaca lub wspierającą
+                        btn_clicked = None
+                        if self.selected_tower:
+                            btn_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
+                            if btn_clicked:
+                                if btn_clicked == "Upgrade":
+                                    cost = self.selected_tower.get_upgrade_cost()
+                                    if self.money >= cost:
+                                        self.money -= cost
+                                        self.selected_tower.upgrade()
 
-                    if not (btn_clicked):
-                        for tw in self.attack_towers:
-                            if tw.click(pos[0], pos[1]):
-                                tw.selected = True
-                                self.selected_tower = tw
-                            else:
-                                tw.selected = False
-                        # pokazuje zasieg po kliknieciu w wieze wspierajaca
-                        for tw in self.support_towers:
-                            if tw.click(pos[0], pos[1]):
-                                tw.selected = True
-                                self.selected_tower = tw
-                            else:
-                                tw.selected = False
+                        if not (btn_clicked):
+                            for tw in self.attack_towers:
+                                if tw.click(pos[0], pos[1]):
+                                    tw.selected = True
+                                    self.selected_tower = tw
+                                else:
+                                    tw.selected = False
+                            # pokazuje zasieg po kliknieciu w wieze wspierajaca
+                            for tw in self.support_towers:
+                                if tw.click(pos[0], pos[1]):
+                                    tw.selected = True
+                                    self.selected_tower = tw
+                                else:
+                                    tw.selected = False
 
 
 
@@ -149,6 +149,7 @@ class Game:
 
     def draw (self):
         self.win.blit(self.bg, (0,0))
+
 
         #Rysowanie wież atakujących
         for tw in self.attack_towers:

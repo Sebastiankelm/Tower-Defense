@@ -149,7 +149,7 @@ class VerticalMenu(Menu):
         btn_y = self.y - 100 + (self.items-1) * 120
         self.buttons.append(VerticalButton(btn_x, btn_y, img, name, cost))
 
-    def get_item_cost(self):
+    def get_item_cost(self, name):
         return Exception("Nie zaimplemenotwane")
 
     def draw(self, win):
