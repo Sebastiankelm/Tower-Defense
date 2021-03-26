@@ -27,6 +27,7 @@ class Game:
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
         self.life_font = pygame.font.SysFont("comicsans", 70)
+        self.selected_tower = None
 
 
 
@@ -45,7 +46,20 @@ class Game:
                 pos = pygame.mouse.get_pos()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    # pokazuje zasieg po kliknieciu w wieze atakujaca
+                    for tw in self.attack_towers:
+                        if tw.click(pos[0], pos[1]):
+                            tw.selected = True
+                            self.selected_tower = tw
+                        else:
+                            tw.selected = False
+                    # pokazuje zasieg po kliknieciu w wieze wspierajaca
+                    for tw in self.support_towers:
+                        if tw.click(pos[0], pos[1]):
+                            tw.selected = True
+                            self.selected_tower = tw
+                        else:
+                            tw.selected = False
 
             # petla przez przeciwnikow
             to_del = []
